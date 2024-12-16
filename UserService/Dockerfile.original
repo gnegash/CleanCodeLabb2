@@ -1,0 +1,26 @@
+# Use a Windows-based image for the final runtime environment
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+# EXPOSE 8080
+# EXPOSE 8081
+
+# Use a Windows SDK image for building and publishing
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["CleanCodeLabb2/CleanCodeLabb2.csproj", "CleanCodeLabb2/"]
+RUN dotnet restore "./CleanCodeLabb2/CleanCodeLabb2.csproj"
+COPY . .
+WORKDIR "/src/CleanCodeLabb2"
+RUN dotnet build "./CleanCodeLabb2.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+
+# Publish the application
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./CleanCodeLabb2.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+
+# Final runtime image (used to run the app)
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "CleanCodeLabb2.dll"]
