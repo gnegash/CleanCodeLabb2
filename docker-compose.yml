@@ -11,7 +11,7 @@ services:
       - sqlserver_data:/var/opt/mssql # Persist database data in a volume
 
   bookingserviceapi:
-    image: gnegash/userservice:latest
+    image: gnegash/userservice:v20241216133917
     # context: . # Build the Docker image from the current directory
     # dockerfile: CleanCodeLabb2/Dockerfile # Path to your Dockerfile
     container_name: bookingserviceapi
