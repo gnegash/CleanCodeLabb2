@@ -5,22 +5,22 @@ services:
     ports:
       - "1433:1433" # Expose SQL Server's port
     environment:
-      SA_PASSWORD: "Bye123" # Set the SA password
+      SA_PASSWORD: "ByeBye.123" # Set the SA password
       ACCEPT_EULA: "Y" # Accept the EULA
     volumes:
       - sqlserver_data:/var/opt/mssql # Persist database data in a volume
 
   bookingserviceapi:
-    build:
-      context: . # Build the Docker image from the current directory
-      dockerfile: CleanCodeLabb2/Dockerfile # Path to your Dockerfile
-    container_name: CleanCodeLabb2
+    image: gnegash/userservice:latest
+    # context: . # Build the Docker image from the current directory
+    # dockerfile: CleanCodeLabb2/Dockerfile # Path to your Dockerfile
+    container_name: bookingserviceapi
     ports:
       - "8088:8088" # Expose your API on port 8080
     depends_on:
       - sqlserver # Ensure SQL Server starts first
     environment:
-      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=MicroService;User Id=gn;Password=Bye123;TrustServerCertificate=True;" # Connection string to SQL Server
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=MicroService;User Id=sa;Password=ByeBye.123;TrustServerCertificate=True;" # Connection string to SQL Server
       ASPNETCORE_URLS: "http://+:8088"
 
 volumes:
