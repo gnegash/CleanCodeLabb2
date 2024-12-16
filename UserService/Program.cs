@@ -27,7 +27,7 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<MicroServiceDbContext>();
     dbContext.Database.Migrate();
 
-} // databas migration
+}
 
 // Configure the HTTP request pipeline.
 
