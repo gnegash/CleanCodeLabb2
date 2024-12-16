@@ -7,7 +7,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["UserService", "."]
+COPY ["CleanCodeLabb2/UserService.csproj", "./UserService/"]
 RUN dotnet restore "./UserService.csproj"
 COPY . .
 WORKDIR "/src/UserService"

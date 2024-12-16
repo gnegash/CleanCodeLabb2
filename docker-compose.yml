@@ -12,9 +12,7 @@ services:
 
   userserviceapi:
     image: gnegash/userservice:v20241216133917
-    # context: . # Build the Docker image from the current directory
-    # dockerfile: CleanCodeLabb2/Dockerfile # Path to your Dockerfile
-    container_name: userserviceapi
+    container_name: UserService
     ports:
       - "8088:8088" # Expose your API on port 8080
     depends_on:
