@@ -11,7 +11,7 @@ services:
       - sqlserver_data:/var/opt/mssql # Persist database data in a volume
 
   userserviceapi:
-    image: gnegash/userservice:v20241216133917
+    image: gnegash/userservice
     container_name: UserService
     ports:
       - "8088:8088" # Expose your API on port 8080
